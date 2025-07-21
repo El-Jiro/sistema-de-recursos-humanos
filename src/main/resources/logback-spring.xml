@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%thread] %-5level: %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- Logger específico para Spring Web -->
+    <logger name="org.springframework.web" level="DEBUG" />
+
+    <!-- Logger para mostrar el contenido de las solicitudes/respuestas (opcional) -->
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" />
+    <logger name="org.springframework.web.servlet.DispatcherServlet" level="DEBUG" />
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="DEBUG" />
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" level="DEBUG" />
+
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

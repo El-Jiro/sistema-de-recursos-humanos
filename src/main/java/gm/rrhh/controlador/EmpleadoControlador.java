@@ -25,7 +25,7 @@ public class EmpleadoControlador {
     private static final String nl = System.lineSeparator();
     //Inyectamos una instancia de la clase de serivici
     @Autowired
-    private static EmpleadoServicio empleadoServicio;
+    private EmpleadoServicio empleadoServicio;
 
     /*
     * Creamos el método para recuperar todos los registros de la tabla Empleado
@@ -38,6 +38,7 @@ public class EmpleadoControlador {
         var empleados = empleadoServicio.listarEmpleados();
         //Imprimimos la lista en consola con un forEach
         empleados.forEach(empleado -> logger.info(empleado.toString()));
+        logger.info(nl);
         //devolvemos la lista
         return empleados;
     }

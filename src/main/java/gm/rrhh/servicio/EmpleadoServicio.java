@@ -11,7 +11,7 @@ import java.util.List;
 public class EmpleadoServicio implements IEmpleadoServicio {
 
     @Autowired
-    private static EmpleadoRepositorio empleadoRepositorio;
+    private EmpleadoRepositorio empleadoRepositorio;
 
     @Override
     public List<Empleado> listarEmpleados() {

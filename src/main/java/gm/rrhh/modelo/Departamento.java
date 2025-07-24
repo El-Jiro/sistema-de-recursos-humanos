@@ -1,5 +1,6 @@
 package gm.rrhh.modelo;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -19,5 +20,6 @@ public enum Departamento {
     LOGISTICA("Logística"),
     PROD("Producción/Operaciones");
 
+    @JsonValue
     private final String displayName;
 }

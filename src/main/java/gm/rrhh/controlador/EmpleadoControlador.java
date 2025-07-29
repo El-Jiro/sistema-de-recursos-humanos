@@ -1,14 +1,18 @@
 package gm.rrhh.controlador;
 
+import gm.rrhh.excepcion.NotFoundException;
 import gm.rrhh.modelo.Empleado;
 import gm.rrhh.servicio.EmpleadoServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 //Definimos el dominio base de la aplicación
@@ -45,6 +49,19 @@ public class EmpleadoControlador {
     public Empleado agregarEmpleado(@RequestBody Empleado empleado){
         logger.info("Empleado a agregar {}", empleado + nl);
         return empleadoServicio.guardarEmpleado(empleado);
+    }
+
+    @GetMapping("/empleado/{id}")
+    public ResponseEntity<?> obtenerEmpleadoPorId(@PathVariable Integer id){
+        Empleado empleado = empleadoServicio.buscarEmpleadoPorId(id);
+        if(empleado == null){
+            Map<String, Object> respuesta = new HashMap<>();
+            respuesta.put("mensaje", new NotFoundException("No se encontró un empleado con el id: " + id).getMensaje());
+            respuesta.put("código_http", new NotFoundException().getStatusCode());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(respuesta);
+        } else  {
+            return ResponseEntity.ok(empleado);
+        }
     }
 
 }

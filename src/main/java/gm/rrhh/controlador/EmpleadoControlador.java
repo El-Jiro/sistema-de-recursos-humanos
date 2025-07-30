@@ -83,6 +83,9 @@ public class EmpleadoControlador {
             empleadoModificado.setDepartamento(empleado.getDepartamento());
             empleadoModificado.setSueldo(empleado.getSueldo());
 
+            logger.info("Empleado actualizado: {}", empleadoModificado);
+            empleadoServicio.guardarEmpleado(empleadoModificado);
+
             return ResponseEntity.ok(empleadoModificado);
         }
     }

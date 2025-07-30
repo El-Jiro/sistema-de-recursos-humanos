@@ -84,9 +84,34 @@ public class EmpleadoControlador {
             empleadoModificado.setSueldo(empleado.getSueldo());
 
             logger.info("Empleado actualizado: {}", empleadoModificado);
+            //Guardamos el nuevo objeto en la base de datos
             empleadoServicio.guardarEmpleado(empleadoModificado);
 
             return ResponseEntity.ok(empleadoModificado);
+        }
+    }
+
+
+    @DeleteMapping("/eliminar/{id}")
+    public ResponseEntity<?> eliminarEmpleado(@PathVariable Integer id){
+
+        //Comprobamos que exista el producto en la base de datos
+        var empleado = this.empleadoServicio.buscarEmpleadoPorId(id);
+        //SI
+        if (empleado == null){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).
+                   body(new NotFoundException("No existe un empleado con el id: "+ id).getMessage());
+
+        } else {
+            //Eliminamos el objeto cuyo id coincida con el que hemos recibido en la url
+            this.empleadoServicio.borrarEmpleado(id);
+
+            //Creamos un HashMap para enviarlo como JSON en la respuesta
+            Map<String, String> respuesta = new HashMap<>();
+            respuesta.put("mensaje","Se ha eliminado correctamente el empleado con el id: "+ id);
+
+            //Enviamos el hashmap en el cuerpo del ResponseEntity
+            return ResponseEntity.ok(respuesta);
         }
     }
 
